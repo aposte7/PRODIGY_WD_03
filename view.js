@@ -1,39 +1,37 @@
+import { newGame } from './script'
+
 export function GameUI(element) {
 	element.innerHTML = `
   <div class="game_container">
       <div class="board">
           <div data-cell-row-1 class="board_row">
-              <button data-board-col-1 class="board_cell">
-                X
+              <button data-board-cell="1" class="board_cell">
+                
               </button>
 
-              <button data-board-col-2 class="board_cell">
-                O
+              <button data-board-cell="2" class="board_cell">
+                
               </button>
 
-              <button data-board-col-3 class="board_cell">
+              <button data-board-cell="3" class="board_cell">
               </button>
-          </div>
           
-          <div data-cell-row-2 class="board_row">
-              <button data-board-col-1 class="board_cell">
+              <button data-board-cell="4" class="board_cell">
               </button>
 
-              <button data-board-col-2 class="board_cell">
+              <button data-board-cell="5" class="board_cell">
               </button>
 
-              <button data-board-col-3 class="board_cell">
-              </button>
-          </div>
-
-          <div data-cell-row-3 class="board_row">
-              <button data-board-col-1 class="board_cell">
+              <button data-board-cell="6" class="board_cell">
               </button>
 
-              <button data-board-col-2 class="board_cell">
+              <button data-board-cell="7" class="board_cell">
               </button>
 
-              <button data-board-col-3 class="board_cell">
+              <button data-board-cell="8" class="board_cell">
+              </button>
+
+              <button data-board-cell="9" class="board_cell">
               </button>
           </div>
       </div>
@@ -61,4 +59,6 @@ export function GameUI(element) {
   </div>
   
   `
+
+	newGame()
 }
