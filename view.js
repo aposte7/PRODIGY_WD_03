@@ -4,36 +4,7 @@ export function GameUI(element) {
 	element.innerHTML = `
   <div class="game_container">
       <div class="board">
-          <div data-cell-row-1 class="board_row">
-              <button data-board-cell="1" class="board_cell">
-                
-              </button>
-
-              <button data-board-cell="2" class="board_cell">
-                
-              </button>
-
-              <button data-board-cell="3" class="board_cell">
-              </button>
           
-              <button data-board-cell="4" class="board_cell">
-              </button>
-
-              <button data-board-cell="5" class="board_cell">
-              </button>
-
-              <button data-board-cell="6" class="board_cell">
-              </button>
-
-              <button data-board-cell="7" class="board_cell">
-              </button>
-
-              <button data-board-cell="8" class="board_cell">
-              </button>
-
-              <button data-board-cell="9" class="board_cell">
-              </button>
-          </div>
       </div>
 
       <div class="game_setting">
@@ -44,8 +15,8 @@ export function GameUI(element) {
               </p>
 
               <div class="game_setting_opponents">
-                <button data-player-1>AI</button>
-                <button data-player-2>Human</button>
+                <button data-player="ai" class="btn_opponent">AI</button>
+                <button data-player="human" class="btn_opponent">Human</button>
               </div>
           </div>
 
@@ -60,5 +31,23 @@ export function GameUI(element) {
   
   `
 
+	BoardCell()
 	newGame()
+}
+
+export function BoardCell() {
+	const boardElm = document.querySelector('.board')
+	boardElm.innerHTML = ''
+
+	let boardRowDiv = document.createElement('div')
+	boardRowDiv.className = 'board_row'
+
+	Array.from({ length: 9 }).forEach((_, index) => {
+		let buttonCell = document.createElement('button')
+		buttonCell.className = 'board_cell'
+		buttonCell.setAttribute('data-board-cell', `${index + 1}`)
+		boardRowDiv.appendChild(buttonCell)
+	})
+
+	boardElm.appendChild(boardRowDiv)
 }

@@ -76,13 +76,22 @@ button {
 	justify-content: center;
 	gap: 2rem;
 }
-.game_setting_opponents button {
+.btn_opponent {
 	padding: 1rem 2rem;
 	font-size: 1.6rem;
 	border-radius: 10px;
 	cursor: pointer;
-	background-color: #8836d0;
-	color: #fff;
+	border: 1px solid #9258c6;
+	color: #c4e3fe;
+	background-color: transparent;
+	transition: all 0.3s;
+}
+.btn_opponent:hover {
+	background-color: #9258c6;
+}
+
+.active_opponent {
+	background-color: #9258c6;
 }
 
 .symbol {

@@ -1,4 +1,4 @@
-class Game {
+class Board {
 	#active_player
 	#opponent
 
@@ -43,7 +43,7 @@ class Game {
 
 	isTerminal() {
 		//Return False if board in empty
-		if (this.isEmpty()) return { winner: '' }
+		if (this.isEmpty()) return false
 		//Checking Horizontal Wins
 		if (
 			this.state[0] === this.state[1] &&
@@ -120,4 +120,4 @@ class Game {
 	}
 }
 
-export default Game
+export default Board
