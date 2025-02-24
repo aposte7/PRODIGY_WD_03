@@ -72,9 +72,9 @@ export function newGame(depth = -1, starter = 1) {
 			btnElm.textContent = player_symbol[playerTurn - 1]
 			btnElm.setAttribute('disabled', 'true')
 
-			const game_status = board.isTerminal()
+			status.winner = board.isTerminal()
 
-			if (game_status && game_status.winner) {
+			if (status.winner && status.winner.winner) {
 				status.play = false
 				resetGame()
 			}
@@ -86,8 +86,25 @@ export function newGame(depth = -1, starter = 1) {
 			child.classList.remove('active_opponent')
 			child.removeAttribute('disabled') // Re-enable buttons
 		})
+		const popup = document.querySelector('.popup')
+		popup.style.display = 'block'
+		const popupMessage = document.querySelector('.popup_message')
 
-		// board = new Board() // Reset the board state
-		// BoardCell() // Re-render the board cells
+		popupMessage.textContent =
+			status.winner.winner === 'draw'
+				? "It's a draw!"
+				: `Player  ${status.winner.winner.toUpperCase()}  wins!`
+		const continueBtn = document.querySelector('.popup_btn')
+
+		continueBtn.addEventListener('click', (e) => {
+			board = new Board()
+			popup.style.display = 'none'
+			BoardCell()
+			status = {
+				play: true,
+				players: ['human'],
+				winner: '',
+			}
+		})
 	}
 }

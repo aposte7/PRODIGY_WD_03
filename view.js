@@ -2,12 +2,7 @@ import { newGame } from './script'
 
 export function GameUI(element) {
 	element.innerHTML = `
-  <div class="game_container">
-      <div class="popup">
-      <div class="popup_message
-      "></div>
-      </div>
-
+  <div class="game_container">    
       <div class="board">
           
       </div>
@@ -26,8 +21,8 @@ export function GameUI(element) {
           </div>
 
           <div class="symbol">
-            <p>You <span>X</span></p>
-            <p>Player-2 <span>O</span></p>
+            <p>You <span>O</span></p>
+            <p>Player-2 <span>X</span></p>
           </div>
 
           <div class="level"></div>
