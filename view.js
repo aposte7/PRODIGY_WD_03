@@ -3,6 +3,11 @@ import { newGame } from './script'
 export function GameUI(element) {
 	element.innerHTML = `
   <div class="game_container">
+      <div class="popup">
+      <div class="popup_message
+      "></div>
+      </div>
+
       <div class="board">
           
       </div>

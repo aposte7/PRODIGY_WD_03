@@ -1,29 +1,32 @@
+/**
+ * @desc This class represents the board, contains methods that checks board state, insert a symbol, etc..
+ * @param {Array} state - an array representing the state of the board
+ */
 class Board {
-	#active_player
-	#opponent
-
-	constructor(
-		opponent = 'human',
-		state = ['', '', '', '', '', '', '', '', '']
-	) {
-		this.#opponent = opponent
-		this.#active_player = 1
+	//Initializing the board
+	constructor(state = ['', '', '', '', '', '', '', '', '']) {
 		this.state = state
 	}
 
+	//Checks if board has no symbols yet
 	isEmpty() {
 		return this.state.every((cell) => !cell)
 	}
-
+	//Check if board has no spaces available
 	isFull() {
 		return this.state.every((cell) => cell)
 	}
-
+	/**
+	 * Inserts a new symbol(x,o) into
+	 * @param {String} symbol
+	 * @param {Number} position
+	 * @return {Boolean} boolean represent success of the operation
+	 */
 	insert(symbol, position) {
 		if (![0, 1, 2, 3, 4, 5, 6, 7, 8].includes(position)) {
 			throw new Error(`Cell index ${position} does not exist!`)
 		}
-		if (!['x', 'o'].includes(symbol.toLowerCase())) {
+		if (!['x', 'o'].includes(symbol)) {
 			throw new Error('The symbol can only be x or o!')
 		}
 		if (this.state[position]) {
@@ -32,7 +35,7 @@ class Board {
 		this.state[position] = symbol
 		return true
 	}
-
+	//Returns an array containing available moves for the current state
 	getAvailableMoves() {
 		const moves = []
 		this.state.forEach((cell, index) => {
@@ -40,7 +43,10 @@ class Board {
 		})
 		return moves
 	}
-
+	/**
+	 * Checks if the board has a terminal state ie. a player wins or the board is full with no winner
+	 * @return {Object} an object containing the winner, direction of winning and row number
+	 */
 	isTerminal() {
 		//Return False if board in empty
 		if (this.isEmpty()) return false
@@ -119,5 +125,4 @@ class Board {
 		return false
 	}
 }
-
 export default Board

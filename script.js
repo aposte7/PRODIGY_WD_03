@@ -1,11 +1,12 @@
+import Player from './class/ai.js'
 import Board from './class/game.js'
 import { BoardCell } from './view.js'
-// import { drawWinningLine, hasClass, addClass } from './helpers.js'
+// import { drawWinningLine } from './helpers.js';
 
 export function newGame(depth = -1, starter = 1) {
 	const setting = document.querySelector('.game_setting_opponents')
 	const row_cell = document.querySelector('.board_row')
-	const player_symbol = ['X', 'O']
+	const player_symbol = ['o', 'x']
 	let playerTurn = parseInt(starter)
 
 	let status = {
@@ -14,12 +15,12 @@ export function newGame(depth = -1, starter = 1) {
 		winner: '',
 	}
 
-	const board = new Board()
+	let board = new Board()
+	let aiPlayer = new Player()
 
 	setting.addEventListener('click', (e) => {
-		console.log('OPPONENT')
-
-		const btn = e.target
+		const btn = e.target.closest('button')
+		if (!btn) return
 		const opponent = btn.dataset.player.toLowerCase()
 		status.players = [...status.players, opponent]
 
@@ -33,43 +34,60 @@ export function newGame(depth = -1, starter = 1) {
 	row_cell.addEventListener('click', (e) => {
 		const btnElm = e.target
 		let index = -1
-		const continue_game = status.players.length == 2
+		const continue_game = status.players.length === 2
 
-		if (status.players[playerTurn - 1] == 'human' && continue_game) {
+		if (status.players[playerTurn - 1] === 'human' && continue_game) {
 			index = parseInt(btnElm.dataset.boardCell) - 1
 
 			if (isNaN(index) || index < 0 || !status.play) return
 
-			const con = board.insert(player_symbol[playerTurn - 1], index)
-
-			if (con) {
-				btnElm.textContent = player_symbol[playerTurn - 1]
-				btnElm.setAttribute('disabled', 'true')
-
-				const game_status = game.isTerminal()
-
-				console.log(game_status)
-
-				if (game_status && game_status.winner.length > 0) {
-					status.play = false
-
-					alert(`Player ${playerTurn} won ${game_status.winner}`)
-					resetGame()
-				}
-			}
+			insetIndex(index, 'human', btnElm)
 		} else return
 
 		playerTurn = 3 - playerTurn
+
+		if (
+			status.players[playerTurn - 1] === 'ai' &&
+			continue_game &&
+			status.play
+		) {
+			aiPlayer.getBestMove(board, true, insetIndex, 0)
+			playerTurn = 3 - playerTurn
+
+			console.log('after an AI', board.state)
+		}
 	})
 
-	function aiTurn() {}
+	function insetIndex(selectedIndex, player = '', btn) {
+		const index = parseInt(selectedIndex)
+
+		console.log('selected', index, selectedIndex)
+
+		const btnElm =
+			player.toLowerCase() === 'human'
+				? btn
+				: document.querySelector(`[data-board-cell="${index + 1}"]`)
+
+		if (board.insert(player_symbol[playerTurn - 1], index)) {
+			btnElm.textContent = player_symbol[playerTurn - 1]
+			btnElm.setAttribute('disabled', 'true')
+
+			const game_status = board.isTerminal()
+
+			if (game_status && game_status.winner) {
+				status.play = false
+				resetGame()
+			}
+		}
+	}
 
 	const resetGame = () => {
 		Array.from(setting.children).forEach((child) => {
 			child.classList.remove('active_opponent')
-			child.setAttribute('disabled', 'true')
+			child.removeAttribute('disabled') // Re-enable buttons
 		})
 
-		BoardCell()
+		// board = new Board() // Reset the board state
+		// BoardCell() // Re-render the board cells
 	}
 }
