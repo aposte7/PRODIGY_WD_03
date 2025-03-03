@@ -150,3 +150,40 @@ button {
 	font-size: 2rem;
 	padding-inline: 2rem;
 }
+@media (max-width: 1000px) {
+	html {
+		font-size: 55.5%;
+	}
+}
+@media (max-width: 725px) {
+	html {
+		font-size: 60.5%;
+	}
+	.game_container {
+		flex-direction: column-reverse;
+		gap: 0;
+	}
+	.board_row {
+		padding-block-end: 3rem;
+	}
+}
+@media (max-width: 526px) {
+	html {
+		font-size: 50.5%;
+	}
+}
+@media (max-width: 425px) {
+	html {
+		font-size: 45.5%;
+	}
+}
+@media (max-width: 345px) {
+	html {
+		font-size: 37.5%;
+	}
+}
+@media (max-width: 288px) {
+	html {
+		font-size: 30.5%;
+	}
+}
